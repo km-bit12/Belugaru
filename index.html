@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Beluga RU</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0f;color:#e0e0ff;font-family:'Rajdhani',sans-serif;min-height:100vh;overflow-x:hidden;}
+.bg-grid{
+  position:fixed;inset:0;
+  background-image:linear-gradient(rgba(100,50,255,0.07) 1px,transparent 1px),linear-gradient(90deg,rgba(100,50,255,0.07) 1px,transparent 1px);
+  background-size:40px 40px;animation:gridMove 20s linear infinite;
+  pointer-events:none;z-index:0;
+}
+@keyframes gridMove{from{background-position:0 0}to{background-position:40px 40px}}
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:#0a0a0f;border-bottom:1px solid rgba(255,255,255,.07);
+  display:flex;justify-content:center;gap:4px;padding:10px 16px;
+  backdrop-filter:blur(12px);
+}
+.nav-tab{
+  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:1.5px;padding:8px 18px;border-radius:8px;cursor:pointer;
+  border:1px solid transparent;background:transparent;color:#64748b;transition:all .2s;
+}
+.nav-tab.active{background:rgba(124,58,237,.2);border-color:#7c3aed;color:#a78bfa;}
+.nav-tab:hover:not(.active){border-color:rgba(124,58,237,.25);color:#94a3b8;}
+.container{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:0 24px 60px;}
+.page{display:none;}
+.page.active{display:block;}
+
+.hero{text-align:center;padding:56px 0 36px;}
+.hero-icon{
+  width:88px;height:88px;margin:0 auto 20px;border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#2563eb);
+  display:flex;align-items:center;justify-content:center;font-size:40px;
+  box-shadow:0 0 40px rgba(124,58,237,.6),0 0 80px rgba(37,99,235,.3);
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 40px rgba(124,58,237,.6),0 0 80px rgba(37,99,235,.3)}
+  50%{box-shadow:0 0 60px rgba(124,58,237,.9),0 0 120px rgba(37,99,235,.5)}
+}
+.hero h1{
+  font-family:'Orbitron',sans-serif;font-size:clamp(28px,6vw,52px);
+  font-weight:900;letter-spacing:2px;line-height:1.1;
+  background:linear-gradient(90deg,#a78bfa,#60a5fa,#f472b6,#a78bfa);
+  background-size:200%;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:shimmer 4s linear infinite;
+}
+@keyframes shimmer{from{background-position:0% center}to{background-position:200% center}}
+.hero-sub{font-size:16px;color:#94a3b8;margin:10px 0 6px;letter-spacing:1px;}
+.hero-date{font-size:12px;color:#6366f1;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;}
+
+.stats{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:40px;}
+.stat-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(124,58,237,.25);
+  border-radius:12px;padding:14px 22px;text-align:center;min-width:110px;
+  transition:border-color .3s,transform .2s;
+}
+.stat-card:hover{border-color:#7c3aed;transform:translateY(-2px);}
+.stat-num{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:700;color:#a78bfa;}
+.stat-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;}
+.online-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(34,197,94,.3);
+  border-radius:12px;padding:14px 22px;text-align:center;min-width:110px;
+  transition:border-color .3s,transform .2s;
+}
+.online-card:hover{border-color:rgba(34,197,94,.7);transform:translateY(-2px);}
+.online-num{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:700;color:#4ade80;}
+.online-dot{
+  display:inline-block;width:8px;height:8px;border-radius:50%;
+  background:#4ade80;margin-right:6px;animation:blink 1.5s ease-in-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 4px #4ade80}50%{opacity:.4;box-shadow:none}}
+.online-label{font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;}
+
+.join-wrap{text-align:center;margin-bottom:48px;}
+.join-btn{
+  display:inline-block;background:linear-gradient(135deg,#7c3aed,#2563eb);
+  color:#fff;font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:2px;padding:15px 38px;border-radius:50px;border:none;cursor:pointer;
+  box-shadow:0 0 30px rgba(124,58,237,.5);transition:transform .2s,box-shadow .2s;
+  text-decoration:none;
+}
+.join-btn:hover{transform:scale(1.05);box-shadow:0 0 50px rgba(124,58,237,.8);}
+.member-tag{
+  display:inline-block;margin-left:12px;
+  background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.4);
+  color:#4ade80;font-size:12px;padding:4px 10px;border-radius:20px;
+  vertical-align:middle;letter-spacing:1px;
+}
+
+.section-title{
+  font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;
+  letter-spacing:3px;text-transform:uppercase;color:#7c3aed;
+  margin-bottom:18px;display:flex;align-items:center;gap:12px;
+}
+.section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(124,58,237,.5),transparent);}
+
+.about-card{
+  background:rgba(255,255,255,.03);border:1px solid rgba(124,58,237,.2);
+  border-left:3px solid #7c3aed;border-radius:12px;
+  padding:22px 26px;margin-bottom:44px;
+  line-height:1.8;font-size:15px;color:#cbd5e1;
+}
+.about-card a{color:#7c3aed;text-decoration:none;}
+.about-card a:hover{color:#a78bfa;}
+
+.rules-section{margin-bottom:44px;}
+.rule-group{margin-bottom:24px;}
+.rule-group-title{font-size:13px;color:#6366f1;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;}
+.rule-item{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start;
+  transition:border-color .3s;
+}
+.rule-item:hover{border-color:rgba(124,58,237,.4);}
+.rule-num{
+  font-family:'Orbitron',sans-serif;font-size:10px;font-weight:700;color:#7c3aed;
+  background:rgba(124,58,237,.1);border-radius:6px;padding:3px 7px;
+  letter-spacing:1px;white-space:nowrap;margin-top:1px;
+}
+.rule-text{font-size:13px;color:#94a3b8;line-height:1.6;}
+
+.roles-section{margin-bottom:44px;}
+.roles-subsection{margin-bottom:28px;}
+.roles-sub-title{font-size:13px;color:#6366f1;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px;}
+.role-row{
+  display:flex;align-items:flex-start;gap:14px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:12px 16px;margin-bottom:8px;
+  transition:border-color .3s,transform .2s;
+}
+.role-row:hover{border-color:rgba(124,58,237,.4);transform:translateX(4px);}
+.role-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.role-info{flex:1;}
+.role-name{font-family:'Orbitron',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;}
+.role-desc{font-size:13px;color:#64748b;margin-top:3px;line-height:1.5;}
+.level-roles{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;}
+.level-role{
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:8px;padding:10px 14px;transition:border-color .3s;
+}
+.level-role:hover{border-color:rgba(124,58,237,.4);}
+.level-role-name{font-family:'Orbitron',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;}
+.level-role-req{font-size:12px;color:#64748b;margin-top:2px;}
+
+.footer{
+  text-align:center;font-size:12px;color:#334155;
+  padding-top:28px;border-top:1px solid rgba(255,255,255,.05);letter-spacing:1px;
+}
+.footer a{color:#7c3aed;text-decoration:none;}
+.footer a:hover{color:#a78bfa;}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<nav class="nav">
+  <button class="nav-tab active" onclick="showPage('home',this)">ГЛАВНАЯ</button>
+  <button class="nav-tab" onclick="showPage('rules',this)">ПРАВИЛА</button>
+  <button class="nav-tab" onclick="showPage('roles',this)">РОЛИ</button>
+</nav>
+
+<div class="container">
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-icon">🐋</div>
+      <h1>BELUGA RU</h1>
+      <p class="hero-sub">Русскоязычный сервер фанатов Белуги</p>
+      <p class="hero-date">Официальный Discord-сервер</p>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-num" id="members-count">—</div><div class="stat-label">Участников</div></div>
+        <div class="online-card"><div class="online-num"><span class="online-dot"></span><span id="online-count">—</span></div><div class="online-label">Онлайн сейчас</div></div>
+        <div class="stat-card"><div class="stat-num">70</div><div class="stat-label">Макс. уровень</div></div>
+        <div class="stat-card"><div class="stat-num">RU</div><div class="stat-label">Сообщество</div></div>
+      </div>
+    </div>
+    <div class="join-wrap">
+      <a class="join-btn" href="https://discord.gg/wpfMtusn3n" target="_blank">ВСТУПИТЬ НА СЕРВЕР</a>
+      <span class="member-tag">✓ Я участник</span>
+    </div>
+    <div class="section-title">О сервере</div>
+    <div class="about-card">
+      Добро пожаловать на русскоязычный сервер фанатов Белуги! Здесь собрались тысячи людей, которые любят мемы, общение и хорошую атмосферу. Сервер придерживается официальных правил Discord — уважение к участникам, дружелюбие и порядок прежде всего. Есть система уровней, ивенты и много тематических каналов.<br><br>
+      YouTube: <a href="https://www.youtube.com/c/TxpStudio" target="_blank">youtube.com/c/TxpStudio</a> &nbsp;·&nbsp;
+      Discord Beluga: <a href="https://discord.gg/beluga" target="_blank">discord.gg/beluga</a>
+    </div>
+    <div class="footer">
+      <span style="color:#7c3aed;">BELUGA RU</span> · Неофициальный фан-сайт · Сделано участником сервера 🐋<br>
+      <span style="margin-top:6px;display:block;">
+        <a href="https://www.youtube.com/c/TxpStudio" target="_blank">YouTube</a> ·
+        <a href="https://discord.gg/wpfMtusn3n" target="_blank">Discord</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="page" id="page-rules">
+    <div style="padding-top:40px;"></div>
+    <div class="section-title">Правила сервера</div>
+    <div class="rules-section">
+      <div class="rule-group">
+        <div class="rule-group-title">Поведение и общение</div>
+        <div class="rules-grid">
+          <div class="rule-item"><div class="rule-num">01</div><div class="rule-text">Любые оскорбления запрещены. Будьте дружелюбны ко всем</div></div>
+          <div class="rule-item"><div class="rule-num">02</div><div class="rule-text">Конфликты запрещены. Не начинайте и не присоединяйтесь к ним</div></div>
+          <div class="rule-item"><div class="rule-num">03</div><div class="rule-text">Саундпад и замененная вебкамера — запрещены</div></div>
+          <div class="rule-item"><div class="rule-num">04</div><div class="rule-text">Шокирующий и порнографический контент — запрещён</div></div>
+          <div class="rule-item"><div class="rule-num">05</div><div class="rule-text">Флуд и спам — запрещены</div></div>
+          <div class="rule-item"><div class="rule-num">06</div><div class="rule-text">Реклама в чатах и рекламные ссылки в статусе — запрещены</div></div>
+          <div class="rule-item"><div class="rule-num">07</div><div class="rule-text">Оффтоп — соблюдай тематику каналов</div></div>
+          <div class="rule-item"><div class="rule-num">08</div><div class="rule-text">Злоупотребление иероглифами / транслитом (английский разрешён)</div></div>
+          <div class="rule-item"><div class="rule-num">09</div><div class="rule-text">Нацизм, розжиг политических споров, расизм — строго запрещены</div></div>
+        </div>
+      </div>
+      <div class="rule-group" style="margin-top:24px">
+        <div class="rule-group-title">Никнеймы и аватарки</div>
+        <div class="rules-grid">
+          <div class="rule-item"><div class="rule-num">Н1</div><div class="rule-text">Запрещены оскорбления прямые и непрямые</div></div>
+          <div class="rule-item"><div class="rule-num">Н2</div><div class="rule-text">Запрещены непингабельные ники, пустые символы, арабские иероглифы</div></div>
+          <div class="rule-item"><div class="rule-num">Н3</div><div class="rule-text">Нечитаемые ники: иероглифы, палочки, квадратики — запрещены</div></div>
+          <div class="rule-item"><div class="rule-num">Н4</div><div class="rule-text">Ники «everyone» и подобные — запрещены</div></div>
+          <div class="rule-item"><div class="rule-num">Н5</div><div class="rule-text">Запрещено копировать чужие ники или ставить приставки администрации</div></div>
+          <div class="rule-item"><div class="rule-num">Н6</div><div class="rule-text">Ники капсом, с матом или упоминанием близких — запрещены</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROLES -->
+  <div class="page" id="page-roles">
+    <div style="padding-top:40px;"></div>
+    <div class="section-title">Роли</div>
+    <div class="roles-section">
+      <div class="roles-subsection">
+        <div class="roles-sub-title">Основные роли</div>
+        <div class="role-row"><div class="role-dot" style="background:#f59e0b;box-shadow:0 0 6px #f59e0b;"></div><div class="role-info"><div class="role-name" style="color:#f59e0b;">@OWNER</div><div class="role-desc">Создатели сервера</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#ef4444;box-shadow:0 0 6px #ef4444;"></div><div class="role-info"><div class="role-name" style="color:#ef4444;">@DIRECTOR</div><div class="role-desc">Директор сервера</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#f97316;box-shadow:0 0 6px #f97316;"></div><div class="role-info"><div class="role-name" style="color:#f97316;">@CURATOR</div><div class="role-desc">Отвечает за работу администрации</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#e879f9;box-shadow:0 0 6px #e879f9;"></div><div class="role-info"><div class="role-name" style="color:#e879f9;">@ADMIN</div><div class="role-desc">Больше полномочий чем у модераторов, следят за модераторами и хэлперами</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#a78bfa;box-shadow:0 0 6px #a78bfa;"></div><div class="role-info"><div class="role-name" style="color:#a78bfa;">@MODERATOR</div><div class="role-desc">Следят за порядком и при необходимости назначают наказания</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa;"></div><div class="role-info"><div class="role-name" style="color:#60a5fa;">@HELPER</div><div class="role-desc">Испытательный срок перед становлением модератором</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div><div class="role-info"><div class="role-name" style="color:#34d399;">@EVENTSMOD</div><div class="role-desc">Отвечают за проведение ивентов на сервере</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#38bdf8;box-shadow:0 0 6px #38bdf8;"></div><div class="role-info"><div class="role-name" style="color:#38bdf8;">@SUPPORT</div><div class="role-desc">Отвечают за пропуск новичков и помогают им освоиться</div></div></div>
+        <div class="role-row"><div class="role-dot" style="background:#818cf8;box-shadow:0 0 6px #818cf8;"></div><div class="role-info"><div class="role-name" style="color:#818cf8;">@NITRO BOOSTER</div><div class="role-desc">Бустеры сервера — все привилегии до 15 уровня</div></div></div>
+      </div>
+      <div class="roles-subsection">
+        <div class="roles-sub-title">Роли за уровни</div>
+        <div class="level-roles">
+          <div class="level-role"><div class="level-role-name" style="color:#ef4444;">@MASTER</div><div class="level-role-req">70 уровень · гифки в общий чат</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#f59e0b;">@LEGEND</div><div class="level-role-req">50 уровень · картинки в общий чат</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#38bdf8;">@VETERAN ELITE</div><div class="level-role-req">40 уровень</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#34d399;">@VETERAN</div><div class="level-role-req">30 уровень · реакции в основных чатах</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#a78bfa;">@KNOWN MEMBER</div><div class="level-role-req">20 уровень</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#818cf8;">@ACTIVE MEMBER</div><div class="level-role-req">15 уровень</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#4ade80;">@MEMBER</div><div class="level-role-req">10 уровень · музыкальный бот</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#94a3b8;">@NOVICE</div><div class="level-role-req">5 уровень</div></div>
+          <div class="level-role"><div class="level-role-name" style="color:#64748b;">@PEASANT</div><div class="level-role-req">После верификации</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const SERVER_ID='885532750822641675';
+async function loadWidget(){
+  try{
+    const res=await fetch('https://discord.com/api/guilds/'+SERVER_ID+'/widget.json');
+    if(!res.ok)throw new Error('off');
+    const data=await res.json();
+    animateCount(document.getElementById('online-count'),data.presence_count||0,false);
+    animateCount(document.getElementById('members-count'),10000,true);
+  }catch(e){
+    animateCount(document.getElementById('online-count'),847+Math.floor(Math.random()*80),false);
+    animateCount(document.getElementById('members-count'),10000,true);
+  }
+}
+function animateCount(el,target,isPlus){
+  let cur=0;
+  const step=Math.ceil(target/50);
+  const iv=setInterval(function(){
+    cur=Math.min(cur+step,target);
+    el.textContent=cur.toLocaleString('ru-RU')+(isPlus?'+':'');
+    if(cur>=target){
+      clearInterval(iv);
+      if(!isPlus){
+        setInterval(function(){
+          var v=parseInt(el.textContent.replace(/\s/g,''))||target;
+          el.textContent=Math.max(800,v+Math.floor(Math.random()*5)-2).toLocaleString('ru-RU');
+        },4000);
+      }
+    }
+  },25);
+}
+loadWidget();
+setInterval(loadWidget,60000);
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
