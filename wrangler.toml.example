@@ -1,0 +1,15 @@
+# Example only. Replace the placeholders before using with Wrangler.
+name = "beluga-ru-admin-api"
+main = "worker.js"
+compatibility_date = "2026-11-18"
+
+[vars]
+# Set this to the exact public website origin, for example https://beluga.example
+ALLOWED_ORIGIN = "https://YOUR-SITE.example"
+# The JSONBin bin ID is not a secret, but keep the Master Key in Worker Secrets.
+JSONBIN_BIN_ID = "YOUR_JSONBIN_BIN_ID"
+
+# Create a KV namespace and paste its ID here:
+[[kv_namespaces]]
+binding = "AUTH_KV"
+id = "YOUR_KV_NAMESPACE_ID"
